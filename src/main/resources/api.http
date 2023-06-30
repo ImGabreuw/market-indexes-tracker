@@ -1,0 +1,2 @@
+### Get S&P 500 Quotation
+http://localhost:8080/api/v1/quote/.INX:INDEXSP
