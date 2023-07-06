@@ -4,13 +4,17 @@ import br.com.gabreuw.marketindexestracker.domain.adapter.QuotationScrapper;
 import br.com.gabreuw.marketindexestracker.domain.entities.Quotation;
 import br.com.gabreuw.marketindexestracker.shared.helpers.NumberHelper;
 import br.com.gabreuw.marketindexestracker.shared.usecase.UseCase;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
-public record GetMarketIndexQuotationUseCase(
-        QuotationScrapper quotationScrapper
-) implements UseCase<GetMarketIndexQuotationUseCase.InputValues, GetMarketIndexQuotationUseCase.OutputValues> {
+@RequiredArgsConstructor
+public class GetMarketIndexQuotationUseCase implements UseCase<GetMarketIndexQuotationUseCase.InputValues, GetMarketIndexQuotationUseCase.OutputValues> {
 
+    private final QuotationScrapper quotationScrapper;
+
+    @Cacheable("quotationsCache")
     @Override
     public OutputValues execute(InputValues input) {
         String assetCode = input.assetCode();
